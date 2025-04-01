@@ -12,8 +12,14 @@ const initilalizeAnListenExpress = () => {
     try {
         app.use(express.json())
             .use(cors())
-            .use('/api', require('./api/routes/index.js'))
             .use(morgan('dev'))
+            .use ("/", (req, res) => {
+                res.status(200).json({
+                    message: "Welcome to the Eventopia API!! 🎉",
+                    endpoints: { api: "/api" }
+                })
+            })
+            .use('/api', require('./api/routes/index.js'))
             .listen(3000, '0.0.0.0', () => {
                 console.info('Server started')
             })
